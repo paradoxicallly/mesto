@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Mesto Russia</title>
+</head>
+
+<body class="page">
+    <header class="header">
+        <img class="header__logo" src="./images/logo.svg" alt="логотип">
+    </header>
+
+    <main class="content">
+        <section class="profile">
+            <div class="profile__container">
+                <img class="profile__avatar" src="./images/avatar.jpg" alt="аватар">
+                <div class="profile__info">
+                    <div class="profile__name">
+                        <h1 class="profile__title">Жак-Ив Кусто</h1>
+                        <button class="profile__edit-button"></button>
+                    </div>
+                    <p class="profile__description">Исследователь океана</p>
+                </div>                
+            </div>
+            <button class="profile__add-button"></button>
+        </section>
+
+        <section class="elements">
+            <ul class="cards">
+                <li class="cards__item">
+                    <img class="cards__image" src="./images/karachay-cherkessia.png" alt="Карачаевск">
+                    <div class="cards__name">
+                        <h2 class="cards__title">Карачаевск</h2>
+                        <button class="cards__like-button"></button>
+                    </div>
+                </li>
+                <li class="cards__item">
+                    <img class="cards__image" src="./images/elbrus.png" alt="Гора Эльбрус">
+                    <div class="cards__name">
+                        <h2 class="cards__title">Гора Эльбрус</h2>
+                        <button class="cards__like-button"></button>
+                    </div>
+                </li>
+                <li class="cards__item">
+                    <img class="cards__image" src="./images/dombai.png" alt="Домбай">
+                    <div class="cards__name">
+                        <h2 class="cards__title">Домбай</h2>
+                        <button class="cards__like-button"></button>
+                    </div>
+                </li>
+                <li class="cards__item">
+                    <img class="cards__image" src="./images/elbrus.png" alt="Гора Эльбрус">
+                    <div class="cards__name">
+                        <h2 class="cards__title">Гора Эльбрус</h2>
+                        <button class="cards__like-button"></button>
+                    </div>
+                </li>
+                <li class="cards__item">
+                    <img class="cards__image" src="./images/dombai.png" alt="Домбай">
+                    <div class="cards__name">
+                        <h2 class="cards__title">Домбай</h2>
+                        <button class="cards__like-button"></button>
+                    </div>
+                </li>
+                <li class="cards__item">
+                    <img class="cards__image" src="./images/karachay-cherkessia.png" alt="Карачаево-Черкессия">
+                    <div class="cards__name">
+                        <h2 class="cards__title">Карачаево-Черкессия</h2>
+                        <button class="cards__like-button"></button>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p class="footer__copyright">&copy; 2022. Кира Горинчой</p>
+    </footer>
+
+    <div class="popup">
+        <form class="popup__container">
+            <button type="button" class="popup__close-button"></button>
+            <h2 class="popup__title">Редактировать профиль</h2>
+            <fieldset class="popup__form">
+                <input type="text" value="Жак-Ив Кусто" class="popup__input popup__input_name" required>
+                <input type="text" value="Исследователь океана" class="popup__input popup__input_job" required>
+                <input type="submit" class="popup__button" value="Сохранить">
+            </fieldset>
+        </form>
+    </div>
+    <script src="./script.js"></script>
+</body>

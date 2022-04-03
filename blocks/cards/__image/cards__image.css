@@ -1,0 +1,4 @@
+.cards__image {
+    justify-self: center;
+    object-fit: cover;
+}
