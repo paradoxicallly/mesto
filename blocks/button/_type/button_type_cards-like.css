@@ -1,4 +1,4 @@
-.cards__like-button {
+.button_type_cards-like {
     background-image: url(../../../images/button-like.svg);
     background-repeat: no-repeat;
     background-color: #FFF;
@@ -10,11 +10,11 @@
     cursor: pointer;
 }
 
-.cards__like-button:hover {
+.button_type_cards-like:hover {
     opacity: 0.5;
 }
 
-.cards__like-button:active {
+.button_type_cards-like:active {
     background-image: url(../../../images/button-like-active.svg);
     opacity: 1;
 }
