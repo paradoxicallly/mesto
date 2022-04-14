@@ -30,49 +30,8 @@
 
         <section class="elements">
             <ul class="cards">
-                <li class="cards__item">
-                    <img class="cards__image" src="./images/karachay-cherkessia.png" alt="Карачаевск">
-                    <div class="cards__name">
-                        <h2 class="cards__title">Карачаевск</h2>
-                        <button type="button" class="cards__button-like"></button>
-                    </div>
-                </li>
-                <li class="cards__item">
-                    <img class="cards__image" src="./images/elbrus.png" alt="Гора Эльбрус">
-                    <div class="cards__name">
-                        <h2 class="cards__title">Гора Эльбрус</h2>
-                        <button type="button" class="cards__button-like"></button>
-                    </div>
-                </li>
-                <li class="cards__item">
-                    <img class="cards__image" src="./images/dombai.png" alt="Домбай">
-                    <div class="cards__name">
-                        <h2 class="cards__title">Домбай</h2>
-                        <button type="button" class="cards__button-like"></button>
-                    </div>
-                </li>
-                <li class="cards__item">
-                    <img class="cards__image" src="./images/elbrus.png" alt="Гора Эльбрус">
-                    <div class="cards__name">
-                        <h2 class="cards__title">Гора Эльбрус</h2>
-                        <button type="button" class="cards__button-like"></button>
-                    </div>
-                </li>
-                <li class="cards__item">
-                    <img class="cards__image" src="./images/dombai.png" alt="Домбай">
-                    <div class="cards__name">
-                        <h2 class="cards__title">Домбай</h2>
-                        <button type="button" class="cards__button-like"></button>
-                    </div>
-                </li>
-                <li class="cards__item">
-                    <img class="cards__image" src="./images/karachay-cherkessia.png" alt="Карачаево-Черкессия">
-                    <div class="cards__name">
-                        <h2 class="cards__title">Карачаево-Черкессия</h2>
-                        <button type="button" class="cards__button-like"></button>
-                    </div>
-                </li>
-            </ul>
+
+            </ul>            
         </section>
     </main>
 
@@ -80,10 +39,10 @@
         <p class="footer__copyright">&copy; 2022. Кира Горинчой</p>
     </footer>
 
-    <div class="popup">
-        <div class="popup__container">
-            <button type="button" class="popup__button-close"></button>
-            <form class="form" name="profile-edit-form">
+    <div class="popup popup_profile">
+        <div class="popup__container popup__container_profile-edit">
+            <button type="button" class="popup__button-close popup__button-close_profile"></button>
+            <form class="form__profile" name="profile-edit-form">
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <fieldset class="popup__form">
                     <input type="text" name="profile-name" class="popup__input popup__input_type_name" required>
@@ -91,6 +50,39 @@
                     <input type="submit" class="popup__button-save" value="Сохранить">
                 </fieldset>
             </form>
+        </div>
+    </div>
+
+    <div class="popup popup_picture-form">
+        <div class="popup__container popup__container_picture-add">
+            <button type="button" class="popup__button-close popup__button-close_picture"></button>
+            <form class="form__add-picture" name="add-picture-form">
+                <h2 class="popup__title">Новое место</h2>
+                <fieldset class="popup__form">
+                    <input type="text" name="image-title" placeholder="Название" class="popup__input popup__input_type_title" required>
+                    <input type="text" name="image-link" placeholder="Ссылка на картинку" class="popup__input popup__input_type_link" required>
+                    <input type="submit" class="popup__button-save" value="Создать">
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <template id="card" class="cards__template">
+        <li class="cards__item">
+            <img class="cards__image cards__image_place_template" src="#" alt="">
+            <button type="button" class="cards__button-delete"></button>
+            <div class="cards__name">
+                <h2 class="cards__title cards__title_place_template"></h2>
+                <button type="button" class="cards__button-like"></button>
+            </div>
+        </li> 
+    </template>
+
+    <div class="popup popup_picture-full">
+        <div class="popup__container popup__container_picture-full">
+            <button type="button" class="popup__button-close popup__button-close_picture-full"></button>
+            <img class="cards__image cards__image_place_popup" src="#" alt="">
+            <h2 class="cards__title cards__title_place_popup"></h2>
         </div>
     </div>
 
