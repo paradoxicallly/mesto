@@ -1,6 +1,6 @@
 // переменные формы профиля
 const popupProfile = document.querySelector('.popup_profile');
-const profileElement = popupProfile.querySelector('.form__profile');
+const profileElement = popupProfile.querySelector('.popup__profile-form');
 const nameInput = profileElement.querySelector('.popup__input_type_name');
 const jobInput = profileElement.querySelector('.popup__input_type_job');
 const profileCloseButton = popupProfile.querySelector('.popup__button-close_profile');
@@ -12,7 +12,7 @@ const profileOpenButton = document.querySelector('.profile__button-edit');
 
 // переменные формы картинок
 const popupPictureForm = document.querySelector('.popup_picture-form');
-const pictureElement = popupPictureForm.querySelector('.form__add-picture'); 
+const pictureElement = popupPictureForm.querySelector('.popup__add-picture-form'); 
 const titleInput = pictureElement.querySelector('.popup__input_type_title');
 const linkInput = pictureElement.querySelector('.popup__input_type_link');
 const pictureFormOpenButton = document.querySelector('.profile__button-add');
@@ -21,8 +21,8 @@ const pictureFormCloseButton = popupPictureForm.querySelector('.popup__button-cl
 // переменные попапа картинок
 const popupPicture = document.querySelector('.popup_picture-full');
 const pictureCloseButton = popupPicture.querySelector('.popup__button-close_picture-full');
-const titlePicture = popupPicture.querySelector('.cards__title_place_popup');
-const pictureFull = popupPicture.querySelector('.cards__image_place_popup');
+const titlePicture = popupPicture.querySelector('.popup__picture-title');
+const pictureFull = popupPicture.querySelector('.popup__full-picture');
 
 // карточки
 const initialCardsList = document.querySelector('.cards');

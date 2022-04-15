@@ -42,7 +42,7 @@
     <div class="popup popup_profile">
         <div class="popup__container popup__container_profile-edit">
             <button type="button" class="popup__button-close popup__button-close_profile"></button>
-            <form class="form__profile" name="profile-edit-form">
+            <form class="popup__profile-form" name="profile-edit-form">
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <fieldset class="popup__form">
                     <input type="text" name="profile-name" class="popup__input popup__input_type_name" required>
@@ -56,7 +56,7 @@
     <div class="popup popup_picture-form">
         <div class="popup__container popup__container_picture-add">
             <button type="button" class="popup__button-close popup__button-close_picture"></button>
-            <form class="form__add-picture" name="add-picture-form">
+            <form class="popup__add-picture-form" name="add-picture-form">
                 <h2 class="popup__title">Новое место</h2>
                 <fieldset class="popup__form">
                     <input type="text" name="image-title" placeholder="Название" class="popup__input popup__input_type_title" required>
@@ -69,10 +69,10 @@
 
     <template id="card" class="cards__template">
         <li class="cards__item">
-            <img class="cards__image cards__image_place_template" src="#" alt="">
+            <img class="cards__image" src="#" alt="">
             <button type="button" class="cards__button-delete"></button>
             <div class="cards__name">
-                <h2 class="cards__title cards__title_place_template"></h2>
+                <h2 class="cards__title"></h2>
                 <button type="button" class="cards__button-like"></button>
             </div>
         </li> 
@@ -81,8 +81,8 @@
     <div class="popup popup_picture-full">
         <div class="popup__container popup__container_picture-full">
             <button type="button" class="popup__button-close popup__button-close_picture-full"></button>
-            <img class="cards__image cards__image_place_popup" src="#" alt="">
-            <h2 class="cards__title cards__title_place_popup"></h2>
+            <img class="popup__full-picture" src="#" alt="">
+            <h2 class="popup__picture-title"></h2>
         </div>
     </div>
 
