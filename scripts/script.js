@@ -27,32 +27,6 @@ const pictureFull = popupPicture.querySelector('.popup__full-picture');
 // карточки
 const initialCardsList = document.querySelector('.cards');
 const cardsTemplate = document.querySelector('.cards__template').content;
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ];
 
 function openForm(popupName) {
     popupName.classList.add('popup_opened');
@@ -63,21 +37,21 @@ function closeForm(popupName) {
 }
 
 function openProfileForm() {
-    openForm(popupProfile);
-
     nameInput.value = profileName.textContent;
     jobInput.value = profileDescription.textContent;
+
+    openForm(popupProfile);
 }
 
 function openPicture(element) {
-    openForm(popupPicture);
-
-    pictureFull.setAttribute ('src', `${element.link}`);
-    pictureFull.setAttribute ('alt', `${element.name}`);
+    pictureFull.src = element.link;
+    pictureFull.alt = element.name;
     titlePicture.textContent = element.name;
+
+    openForm(popupPicture);
 }
 
-function profileSubmitHandler (evt) {
+function submitProfileForm (evt) {
     evt.preventDefault();
 
     profileName.textContent = nameInput.value;
@@ -86,13 +60,14 @@ function profileSubmitHandler (evt) {
     closeForm(popupProfile);
 }
 
-function addPicture(element) {
+function createPicture(element) {
   const cardsElement = cardsTemplate.cloneNode(true);
   const imageElement = cardsElement.querySelector('.cards__image');
   const cardsButtonDelete = cardsElement.querySelector('.cards__button-delete');
   const cardsButtonLike = cardsElement.querySelector('.cards__button-like');
-  imageElement.setAttribute ('src', `${element.link}`);
-  imageElement.setAttribute ('alt', `${element.name}`);
+
+  imageElement.src = element.link;
+  imageElement.alt = element.name;
   cardsElement.querySelector('.cards__title').textContent = element.name;
 
   cardsButtonDelete.addEventListener('click', removeCard);
@@ -101,8 +76,9 @@ function addPicture(element) {
   });
   
   imageElement.addEventListener('click', () => openPicture(element));
-
-  initialCardsList.prepend(cardsElement);
+  titleInput.value = '';
+  linkInput.value = '';
+  return cardsElement;
 }
 
 function removeCard(evt) {
@@ -110,25 +86,23 @@ function removeCard(evt) {
   element.remove();
 }
 
-function pictureSubmitHandler (evt) {
+function submitProfileForm (evt) {
     evt.preventDefault();
-
-    addPicture({name: titleInput.value, link: linkInput.value});
     
-titleInput.value = '';
-linkInput.value = '';
+    const pictureObject = {name: titleInput.value, link: linkInput.value};
+    initialCardsList.prepend(createPicture(pictureObject));
 
     closeForm(popupPictureForm);
 }
 
-initialCards.forEach(element => addPicture(element));
+initialCards.forEach(element => initialCardsList.prepend(createPicture(element)));
 
 profileOpenButton.addEventListener('click', () => openProfileForm());
 profileCloseButton.addEventListener('click', () => closeForm(popupProfile));
-profileElement.addEventListener('submit', profileSubmitHandler);
+profileElement.addEventListener('submit', submitProfileForm);
 
 pictureFormOpenButton.addEventListener('click', () => openForm(popupPictureForm));
 pictureFormCloseButton.addEventListener('click', () => closeForm(popupPictureForm));
-pictureElement.addEventListener('submit', pictureSubmitHandler);
+pictureElement.addEventListener('submit', submitProfileForm);
 
 pictureCloseButton.addEventListener('click', () => closeForm(popupPicture));
