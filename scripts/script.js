@@ -43,6 +43,13 @@ function openProfileForm() {
     openForm(popupProfile);
 }
 
+function openPictureForm() {
+    titleInput.value = '';
+    linkInput.value = '';
+
+    openForm(popupPictureForm);
+}
+
 function openPicture(element) {
     pictureFull.src = element.link;
     pictureFull.alt = element.name;
@@ -91,9 +98,6 @@ function submitPictureForm (evt) {
     const pictureObject = {name: titleInput.value, link: linkInput.value};
     initialCardsList.prepend(createPicture(pictureObject));
 
-    titleInput.value = '';
-    linkInput.value = '';
-
     closeForm(popupPictureForm);
 }
 
@@ -103,7 +107,7 @@ profileOpenButton.addEventListener('click', () => openProfileForm());
 profileCloseButton.addEventListener('click', () => closeForm(popupProfile));
 profileElement.addEventListener('submit', submitProfileForm);
 
-pictureFormOpenButton.addEventListener('click', () => openForm(popupPictureForm));
+pictureFormOpenButton.addEventListener('click', () => openPictureForm());
 pictureFormCloseButton.addEventListener('click', () => closeForm(popupPictureForm));
 pictureElement.addEventListener('submit', submitPictureForm);
 
