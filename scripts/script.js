@@ -76,8 +76,7 @@ function createPicture(element) {
   });
   
   imageElement.addEventListener('click', () => openPicture(element));
-  titleInput.value = '';
-  linkInput.value = '';
+  
   return cardsElement;
 }
 
@@ -86,11 +85,14 @@ function removeCard(evt) {
   element.remove();
 }
 
-function submitProfileForm (evt) {
+function submitPictureForm (evt) {
     evt.preventDefault();
     
     const pictureObject = {name: titleInput.value, link: linkInput.value};
     initialCardsList.prepend(createPicture(pictureObject));
+
+    titleInput.value = '';
+    linkInput.value = '';
 
     closeForm(popupPictureForm);
 }
@@ -103,6 +105,6 @@ profileElement.addEventListener('submit', submitProfileForm);
 
 pictureFormOpenButton.addEventListener('click', () => openForm(popupPictureForm));
 pictureFormCloseButton.addEventListener('click', () => closeForm(popupPictureForm));
-pictureElement.addEventListener('submit', submitProfileForm);
+pictureElement.addEventListener('submit', submitPictureForm);
 
 pictureCloseButton.addEventListener('click', () => closeForm(popupPicture));
