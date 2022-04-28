@@ -1,6 +1,9 @@
+const popupList = document.querySelectorAll('.popup');
+const formList = document.querySelectorAll('.popup__form');
+
 // переменные формы профиля
 const popupProfile = document.querySelector('.popup_profile');
-const profileElement = popupProfile.querySelector('.popup__profile-form');
+const profileElement = popupProfile.querySelector('.popup__form_profile');
 const nameInput = profileElement.querySelector('.popup__input_type_name');
 const jobInput = profileElement.querySelector('.popup__input_type_job');
 const profileCloseButton = popupProfile.querySelector('.popup__button-close_profile');
@@ -12,7 +15,7 @@ const profileOpenButton = document.querySelector('.profile__button-edit');
 
 // переменные формы картинок
 const popupPictureForm = document.querySelector('.popup_picture-form');
-const pictureElement = popupPictureForm.querySelector('.popup__add-picture-form'); 
+const pictureElement = popupPictureForm.querySelector('.popup__form_add-picture'); 
 const titleInput = pictureElement.querySelector('.popup__input_type_title');
 const linkInput = pictureElement.querySelector('.popup__input_type_link');
 const pictureFormOpenButton = document.querySelector('.profile__button-add');
@@ -28,17 +31,42 @@ const pictureFull = popupPicture.querySelector('.popup__full-picture');
 const initialCardsList = document.querySelector('.cards');
 const cardsTemplate = document.querySelector('.cards__template').content;
 
-function openForm(popupName) {
-    popupName.classList.add('popup_opened');
+function openForm(popupName) {    
+    popupName.classList.add('popup_opened');   
+
+    removeErrorMessage();
+
+    document.addEventListener('keydown', (evt) => closePopupByEsc(evt, popupName));
 }
 
 function closeForm(popupName) {
     popupName.classList.remove('popup_opened');
+  
+    document.removeEventListener('keydown', closePopupByEsc);  
+}
+
+function closePopupByEsc(evt, popupName) {
+    if(evt.key === 'Escape') {
+        closeForm(popupName);
+    }
+}
+
+function removeErrorMessage() {
+    const error = document.querySelectorAll('.popup__input-error');
+    error.forEach(error => {
+        error.textContent = '';
+    })
 }
 
 function openProfileForm() {
     nameInput.value = profileName.textContent;
     jobInput.value = profileDescription.textContent;
+
+    enableValidation({
+        formSelector: '.popup__form_profile',
+        inputSelector: '.popup__input',
+        buttonSelector: '.popup__button',
+      })
 
     openForm(popupProfile);
 }
@@ -46,6 +74,12 @@ function openProfileForm() {
 function openPictureForm() {
     titleInput.value = '';
     linkInput.value = '';
+
+    enableValidation({
+        formSelector: '.popup__form_add-picture',
+        inputSelector: '.popup__input',
+        buttonSelector: '.popup__button',
+      })
 
     openForm(popupPictureForm);
 }
@@ -87,12 +121,18 @@ function createPicture(element) {
   return cardsElement;
 }
 
+function addPictureByEnter(evt) {
+    if(evt.key === 'Enter') {
+        submitPictureForm(evt);
+    }
+}
+
 function removeCard(evt) {
   const element = evt.target.closest(".cards__item");
   element.remove();
 }
 
-function submitPictureForm (evt) {
+function submitPictureForm(evt) {
     evt.preventDefault();
     
     const pictureObject = {name: titleInput.value, link: linkInput.value};
@@ -110,5 +150,11 @@ profileElement.addEventListener('submit', submitProfileForm);
 pictureFormOpenButton.addEventListener('click', () => openPictureForm());
 pictureFormCloseButton.addEventListener('click', () => closeForm(popupPictureForm));
 pictureElement.addEventListener('submit', submitPictureForm);
+titleInput.addEventListener('keydown', addPictureByEnter);
+linkInput.addEventListener('keydown', addPictureByEnter);
 
 pictureCloseButton.addEventListener('click', () => closeForm(popupPicture));
+
+popupList.forEach(popup => popup.addEventListener('click', () => closeForm(popup)));
+formList.forEach(form => form.addEventListener('click', (event) => event.stopPropagation()));
+pictureFull.addEventListener('click', (event) => event.stopPropagation());

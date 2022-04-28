@@ -42,12 +42,32 @@
     <div class="popup popup_profile">
         <div class="popup__container popup__container_profile-edit">
             <button type="button" class="popup__button-close popup__button-close_profile"></button>
-            <form class="popup__profile-form" name="profile-edit-form">
+            <form class="popup__form popup__form_profile" name="profile-edit-form" novalidate>
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <fieldset class="popup__form">
-                    <input type="text" name="profile-name" class="popup__input popup__input_type_name" required>
-                    <input type="text" name="profile-job" class="popup__input popup__input_type_job" required>
-                    <input type="submit" class="popup__button-save" value="Сохранить">
+                <fieldset class="popup__fieldset">
+                    <input 
+                        type="text"                         
+                        class="popup__input popup__input_type_name"
+                        name="profile-name"
+                        id="name-input"
+                        placeholder="Имя"
+                        minlength="2"
+                        maxlength="40"
+                        required
+                    >
+                    <span class='popup__input-error' id='name-input-error'></span>
+                    <input 
+                        type="text"
+                        class="popup__input popup__input_type_job"
+                        name="profile-job"
+                        id="job-input" 
+                        placeholder="О себе"
+                        minlength="2"
+                        maxlength="200"
+                        required
+                    >
+                    <span class='popup__input-error' id='job-input-error'></span>
+                    <button type="submit" class="popup__button">Сохранить</button>
                 </fieldset>
             </form>
         </div>
@@ -56,12 +76,30 @@
     <div class="popup popup_picture-form">
         <div class="popup__container popup__container_picture-add">
             <button type="button" class="popup__button-close popup__button-close_picture"></button>
-            <form class="popup__add-picture-form" name="add-picture-form">
+            <form class="popup__form popup__form_add-picture" name="add-picture-form" novalidate>
                 <h2 class="popup__title">Новое место</h2>
-                <fieldset class="popup__form">
-                    <input type="text" name="image-title" placeholder="Название" class="popup__input popup__input_type_title" required>
-                    <input type="text" name="image-link" placeholder="Ссылка на картинку" class="popup__input popup__input_type_link" required>
-                    <input type="submit" class="popup__button-save" value="Создать">
+                <fieldset class="popup__fieldset">
+                    <input 
+                        type="text" 
+                        name="image-title" 
+                        id="title-input"
+                        placeholder="Название" 
+                        class="popup__input popup__input_type_title" 
+                        minlength="2" 
+                        maxlength="30" 
+                        required
+                    >
+                    <span class='popup__input-error' id='title-input-error'></span>
+                    <input 
+                        type="url" 
+                        name="image-link" 
+                        id="link-input"
+                        placeholder="Ссылка на картинку" 
+                        class="popup__input popup__input_type_link" 
+                        required
+                    >
+                    <span class='popup__input-error' id='link-input-error'></span>
+                    <button type="submit" class="popup__button">Создать</button>
                 </fieldset>
             </form>
         </div>
@@ -87,6 +125,7 @@
     </div>
 
     <script src="./scripts/constants.js"></script>
-    <script src="./scripts/script.js"></script>
+    <script src="./scripts/validate.js"></script>
+    <script src="./scripts/script.js"></script> 
 </body>
 </html>
