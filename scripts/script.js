@@ -34,9 +34,7 @@ const cardsTemplate = document.querySelector('.cards__template').content;
 function openForm(popupName) {    
     popupName.classList.add('popup_opened');   
 
-    removeErrorMessage();
-
-    document.addEventListener('keydown', (evt) => closePopupByEsc(evt, popupName));
+    document.addEventListener('keydown', closePopupByEsc);
 }
 
 function closeForm(popupName) {
@@ -45,28 +43,16 @@ function closeForm(popupName) {
     document.removeEventListener('keydown', closePopupByEsc);  
 }
 
-function closePopupByEsc(evt, popupName) {
+function closePopupByEsc(evt) {
+    const openedPopup = document.querySelector('.popup_opened');
     if(evt.key === 'Escape') {
-        closeForm(popupName);
+        closeForm(openedPopup); 
     }
-}
-
-function removeErrorMessage() {
-    const error = document.querySelectorAll('.popup__input-error');
-    error.forEach(error => {
-        error.textContent = '';
-    })
 }
 
 function openProfileForm() {
     nameInput.value = profileName.textContent;
     jobInput.value = profileDescription.textContent;
-
-    enableValidation({
-        formSelector: '.popup__form_profile',
-        inputSelector: '.popup__input',
-        buttonSelector: '.popup__button',
-      })
 
     openForm(popupProfile);
 }
@@ -74,12 +60,6 @@ function openProfileForm() {
 function openPictureForm() {
     titleInput.value = '';
     linkInput.value = '';
-
-    enableValidation({
-        formSelector: '.popup__form_add-picture',
-        inputSelector: '.popup__input',
-        buttonSelector: '.popup__button',
-      })
 
     openForm(popupPictureForm);
 }
@@ -121,12 +101,6 @@ function createPicture(element) {
   return cardsElement;
 }
 
-function addPictureByEnter(evt) {
-    if(evt.key === 'Enter') {
-        submitPictureForm(evt);
-    }
-}
-
 function removeCard(evt) {
   const element = evt.target.closest(".cards__item");
   element.remove();
@@ -150,11 +124,9 @@ profileElement.addEventListener('submit', submitProfileForm);
 pictureFormOpenButton.addEventListener('click', () => openPictureForm());
 pictureFormCloseButton.addEventListener('click', () => closeForm(popupPictureForm));
 pictureElement.addEventListener('submit', submitPictureForm);
-titleInput.addEventListener('keydown', addPictureByEnter);
-linkInput.addEventListener('keydown', addPictureByEnter);
 
 pictureCloseButton.addEventListener('click', () => closeForm(popupPicture));
 
-popupList.forEach(popup => popup.addEventListener('click', () => closeForm(popup)));
+popupList.forEach(popup => popup.addEventListener('click', () => closeForm(popup), false));
 formList.forEach(form => form.addEventListener('click', (event) => event.stopPropagation()));
 pictureFull.addEventListener('click', (event) => event.stopPropagation());

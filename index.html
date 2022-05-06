@@ -45,28 +45,32 @@
             <form class="popup__form popup__form_profile" name="profile-edit-form" novalidate>
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <fieldset class="popup__fieldset">
-                    <input 
-                        type="text"                         
-                        class="popup__input popup__input_type_name"
-                        name="profile-name"
-                        id="name-input"
-                        placeholder="Имя"
-                        minlength="2"
-                        maxlength="40"
-                        required
-                    >
-                    <span class='popup__input-error' id='name-input-error'></span>
-                    <input 
-                        type="text"
-                        class="popup__input popup__input_type_job"
-                        name="profile-job"
-                        id="job-input" 
-                        placeholder="О себе"
-                        minlength="2"
-                        maxlength="200"
-                        required
-                    >
-                    <span class='popup__input-error' id='job-input-error'></span>
+                    <label class="popup__field">
+                        <input 
+                            type="text"                         
+                            class="popup__input popup__input_type_name"
+                            name="profile-name"
+                            id="name-input"
+                            placeholder="Имя"
+                            minlength="2"
+                            maxlength="40"
+                            required
+                        >
+                        <span class='popup__input-error' id='name-input_type_error'></span>
+                    </label>
+                    <label class="popup__field">
+                        <input 
+                            type="text"
+                            class="popup__input popup__input_type_job"
+                            name="profile-job"
+                            id="job-input" 
+                            placeholder="О себе"
+                            minlength="2"
+                            maxlength="200"
+                            required
+                        >
+                        <span class='popup__input-error' id='job-input_type_error'></span>
+                    </label>
                     <button type="submit" class="popup__button">Сохранить</button>
                 </fieldset>
             </form>
@@ -79,26 +83,30 @@
             <form class="popup__form popup__form_add-picture" name="add-picture-form" novalidate>
                 <h2 class="popup__title">Новое место</h2>
                 <fieldset class="popup__fieldset">
-                    <input 
-                        type="text" 
-                        name="image-title" 
-                        id="title-input"
-                        placeholder="Название" 
-                        class="popup__input popup__input_type_title" 
-                        minlength="2" 
-                        maxlength="30" 
-                        required
-                    >
-                    <span class='popup__input-error' id='title-input-error'></span>
-                    <input 
-                        type="url" 
-                        name="image-link" 
-                        id="link-input"
-                        placeholder="Ссылка на картинку" 
-                        class="popup__input popup__input_type_link" 
-                        required
-                    >
-                    <span class='popup__input-error' id='link-input-error'></span>
+                    <label class="popup__field">
+                        <input 
+                            type="text" 
+                            name="image-title" 
+                            id="title-input"
+                            placeholder="Название" 
+                            class="popup__input popup__input_type_title" 
+                            minlength="2" 
+                            maxlength="30" 
+                            required
+                        >
+                        <span class='popup__input-error' id='title-input_type_error'></span>
+                    </label>
+                    <label class="popup__field">
+                        <input 
+                            type="url" 
+                            name="image-link" 
+                            id="link-input"
+                            placeholder="Ссылка на картинку" 
+                            class="popup__input popup__input_type_link" 
+                            required
+                        >
+                        <span class='popup__input-error' id='link-input_type_error'></span>
+                    </label>
                     <button type="submit" class="popup__button">Создать</button>
                 </fieldset>
             </form>
