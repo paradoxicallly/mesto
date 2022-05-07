@@ -50,16 +50,27 @@ function closePopupByEsc(evt) {
     }
 }
 
+function checkFormValidity (form) {
+    const inputs = Array.from(form.querySelectorAll('.popup__input'));
+    const submitButton = form.querySelector('.popup__button');
+    const disabledClass = 'popup__button_disabled'
+
+    toggleButtonState(inputs, submitButton, disabledClass);
+}
+
 function openProfileForm() {
     nameInput.value = profileName.textContent;
     jobInput.value = profileDescription.textContent;
+
+    checkFormValidity(profileElement);
 
     openForm(popupProfile);
 }
 
 function openPictureForm() {
-    titleInput.value = '';
-    linkInput.value = '';
+    pictureElement.reset();
+    
+    checkFormValidity(pictureElement);
 
     openForm(popupPictureForm);
 }
