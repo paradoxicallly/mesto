@@ -1,3 +1,7 @@
+import { initialCards, config } from './constants.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
 const popupList = document.querySelectorAll('.popup');
 const formList = document.querySelectorAll('.popup__form');
 
@@ -24,17 +28,17 @@ const pictureFormCloseButton = popupPictureForm.querySelector('.popup__button-cl
 // переменные попапа картинок
 const popupPicture = document.querySelector('.popup_picture-full');
 const pictureCloseButton = popupPicture.querySelector('.popup__button-close_picture-full');
-const titlePicture = popupPicture.querySelector('.popup__picture-title');
 const pictureFull = popupPicture.querySelector('.popup__full-picture');
 
 // карточки
 const initialCardsList = document.querySelector('.cards');
-const cardsTemplate = document.querySelector('.cards__template').content;
+
+//валидация
+const cardFormValidator = new FormValidator(config, popupPictureForm);
+const editFormValidator = new FormValidator(config, popupProfile);
 
 function openForm(popupName) {    
     popupName.classList.add('popup_opened');   
-
-    document.addEventListener('keydown', closePopupByEsc);
 }
 
 function closeForm(popupName) {
@@ -50,19 +54,11 @@ function closePopupByEsc(evt) {
     }
 }
 
-function checkFormValidity (form) {
-    const inputs = Array.from(form.querySelectorAll('.popup__input'));
-    const submitButton = form.querySelector('.popup__button');
-    const disabledClass = 'popup__button_disabled'
-
-    toggleButtonState(inputs, submitButton, disabledClass);
-}
-
 function openProfileForm() {
     nameInput.value = profileName.textContent;
     jobInput.value = profileDescription.textContent;
 
-    checkFormValidity(profileElement);
+    editFormValidator.toggleButtonState();
 
     openForm(popupProfile);
 }
@@ -70,17 +66,9 @@ function openProfileForm() {
 function openPictureForm() {
     pictureElement.reset();
     
-    checkFormValidity(pictureElement);
+    cardFormValidator.toggleButtonState();
 
     openForm(popupPictureForm);
-}
-
-function openPicture(element) {
-    pictureFull.src = element.link;
-    pictureFull.alt = element.name;
-    titlePicture.textContent = element.name;
-
-    openForm(popupPicture);
 }
 
 function submitProfileForm (evt) {
@@ -92,26 +80,6 @@ function submitProfileForm (evt) {
     closeForm(popupProfile);
 }
 
-function createPicture(element) {
-  const cardsElement = cardsTemplate.cloneNode(true);
-  const imageElement = cardsElement.querySelector('.cards__image');
-  const cardsButtonDelete = cardsElement.querySelector('.cards__button-delete');
-  const cardsButtonLike = cardsElement.querySelector('.cards__button-like');
-
-  imageElement.src = element.link;
-  imageElement.alt = element.name;
-  cardsElement.querySelector('.cards__title').textContent = element.name;
-
-  cardsButtonDelete.addEventListener('click', removeCard);
-  cardsButtonLike.addEventListener('click', function (evt) {
-    evt.target.classList.toggle('cards__button-like_active');
-  });
-  
-  imageElement.addEventListener('click', () => openPicture(element));
-  
-  return cardsElement;
-}
-
 function removeCard(evt) {
   const element = evt.target.closest(".cards__item");
   element.remove();
@@ -121,12 +89,20 @@ function submitPictureForm(evt) {
     evt.preventDefault();
     
     const pictureObject = {name: titleInput.value, link: linkInput.value};
-    initialCardsList.prepend(createPicture(pictureObject));
+    const cardElement = new Card(pictureObject, '.cards__template');
+    initialCardsList.prepend(cardElement.createPicture());
 
     closeForm(popupPictureForm);
 }
 
-initialCards.forEach(element => initialCardsList.prepend(createPicture(element)));
+initialCards.forEach(item => {
+    const card = new Card(item, '.cards__template');
+    const cardElement = card.createPicture();
+    initialCardsList.append(cardElement);
+})
+
+cardFormValidator.enableValidation();
+editFormValidator.enableValidation();
 
 profileOpenButton.addEventListener('click', () => openProfileForm());
 profileCloseButton.addEventListener('click', () => closeForm(popupProfile));
@@ -141,3 +117,5 @@ pictureCloseButton.addEventListener('click', () => closeForm(popupPicture));
 popupList.forEach(popup => popup.addEventListener('click', () => closeForm(popup), false));
 formList.forEach(form => form.addEventListener('click', (event) => event.stopPropagation()));
 pictureFull.addEventListener('click', (event) => event.stopPropagation());
+
+document.addEventListener('keydown', (evt) => closePopupByEsc(evt));
