@@ -1,0 +1,19 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "---\r Проектная работа по седьмому спринту курса \"Веб-разработчик\" от Яндекс.Практикума.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paradoxicallly/mesto.git"
+  },
+  "author": "Kira Gorinchoi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paradoxicallly/mesto/issues"
+  },
+  "homepage": "https://github.com/paradoxicallly/mesto#readme"
+}

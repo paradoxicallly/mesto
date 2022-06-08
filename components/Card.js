@@ -4,11 +4,11 @@ import {
     popupPicture,
 } from './utils.js'
 export default class Card {
-    constructor(data, selector, popupHandler) {
+    constructor(data, selector, handleCardClick) {
         this._selector = selector;
         this._imageLink = data.link;
         this._name = data.name;
-        this._popupHandler = popupHandler;
+        this._handleCardClick = handleCardClick;
     }
 
     _getElement() {
@@ -31,7 +31,7 @@ export default class Card {
         });
 
         this._element.querySelector('.cards__image').addEventListener('click', () => {
-            this._handleOpenPopup()
+            this._handleCardClick();
         });
     }
 
@@ -42,14 +42,6 @@ export default class Card {
 
     _handleLikeCard(evt) {
         evt.target.classList.toggle('cards__button-like_active');
-    }
-
-    _handleOpenPopup() {
-        pictureFull.src = this._imageLink;
-        pictureFull.alt = this._name;
-        pictureTitle.textContent = this._name;
-        this._popupHandler(popupPicture)
-        // popupPicture.classList.add('popup_opened');
     }
 
     _handleElementContent() {
