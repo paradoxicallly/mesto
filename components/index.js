@@ -1,42 +1,25 @@
 import { initialCards, config } from './constants.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
-import {
-    popupList,
-    formList,
-    popupProfile,
-    profileElement,
-    nameInput,
-    jobInput,
-    profileCloseButton,
-    profileName,
-    profileDescription,
-    profileOpenButton,
-    popupPictureForm,
-    pictureElement,
-    titleInput,
-    linkInput,
-    pictureFormOpenButton,
-    pictureFormCloseButton,
-    popupPicture,
-    pictureCloseButton,
-    pictureFull,
-    initialCardsList,
-} from './utils.js';
 import PopupWithImage from './PopupWithImage.js';
 import PopupWithForm from './PopupWithForm.js';
 import UserInfo from './UserInfo.js';
 import Section from './Section.js';
+import {
+    popupProfile,
+    nameInput,
+    jobInput,
+    profileOpenButton,
+    dataFromPage,
+    popupPictureForm,
+    pictureFormOpenButton,
+} from './utils.js';
 
 //валидация
 const cardFormValidator = new FormValidator(config, popupPictureForm);
 const editFormValidator = new FormValidator(config, popupProfile);
 
-const dataFromPage = {
-    profileName: '.profile__title',
-    profileDescription: '.profile__description'
-}
-
+//классы
 const profileForm = new PopupWithForm('.popup_profile', submitProfileForm);
 const pictureForm = new PopupWithForm('.popup_picture-form', submitPictureForm);
 const userInfo = new UserInfo(dataFromPage);

@@ -1,8 +1,3 @@
-import {
-    pictureFull,
-    pictureTitle,
-    popupPicture,
-} from './utils.js'
 export default class Card {
     constructor(data, selector, handleCardClick) {
         this._selector = selector;
