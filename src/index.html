@@ -4,19 +4,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto Russia</title>
 </head>
 
 <body class="page">
     <header class="header">
-        <img class="header__logo" src="./images/logo.svg" alt="логотип">
+        <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="логотип">
     </header>
 
     <main class="content">
         <section class="profile">
             <div class="profile__container">
-                <img class="profile__avatar" src="./images/avatar.jpg" alt="аватар">
+                <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="аватар">
                 <div class="profile__info">
                     <div class="profile__name">
                         <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -131,8 +130,6 @@
             <h2 class="popup__picture-title"></h2>
         </div>
     </div>
-
-    <script type="module" src="./components/index.js"></script> 
     
 </body>
 </html>

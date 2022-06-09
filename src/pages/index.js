@@ -1,10 +1,10 @@
-import { initialCards, config } from './constants.js';
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
-import PopupWithImage from './PopupWithImage.js';
-import PopupWithForm from './PopupWithForm.js';
-import UserInfo from './UserInfo.js';
-import Section from './Section.js';
+import { initialCards, config } from '../components/constants.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+import Section from '../components/Section.js';
 import {
     popupProfile,
     nameInput,
@@ -13,7 +13,7 @@ import {
     dataFromPage,
     popupPictureForm,
     pictureFormOpenButton,
-} from './utils.js';
+} from '../components/utils.js';
 
 //валидация
 const cardFormValidator = new FormValidator(config, popupPictureForm);
