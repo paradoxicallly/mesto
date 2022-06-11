@@ -15,11 +15,6 @@ const dataFromPage = {
 const popupPictureForm = document.querySelector('.popup_picture-form');
 const pictureFormOpenButton = document.querySelector('.profile__button-add');
 
-// переменные попапа картинок
-const popupPicture = document.querySelector('.popup_picture-full');
-const pictureFull = popupPicture.querySelector('.popup__full-picture');
-const pictureTitle = popupPicture.querySelector('.popup__picture-title')
-
 export { 
     popupProfile,
     nameInput,
@@ -28,6 +23,4 @@ export {
     dataFromPage,
     popupPictureForm,
     pictureFormOpenButton,
-    pictureFull,
-    pictureTitle,
 }
