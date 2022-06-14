@@ -13,9 +13,4 @@ export default class PopupWithImage extends Popup {
         this._pictureFull.alt = data.name;
         this._pictureTitle.textContent = data.name;
     }
-
-    setEventListeners() {
-        super.setEventListeners();
-        this._popup.querySelector('.popup__full-picture').addEventListener('mousedown', (event) => event.stopPropagation());
-    }
 }

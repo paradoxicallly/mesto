@@ -33,14 +33,14 @@ function openProfileForm() {
     nameInput.value = userInfo.getUserInfo().name;
     jobInput.value = userInfo.getUserInfo().description;
 
-    editFormValidator.toggleButtonState();
+    editFormValidator.toggleButtonState(); //если не вызвать отдельно, то кнопка не валидируется и при повторном открытии по умолчанию открывается неактивной, даже если инпуты валидны
 
     profileForm.open()
 }
 
 function openPictureForm() {
     cardFormValidator.resetError();
-    cardFormValidator.toggleButtonState();
+    // cardFormValidator.toggleButtonState();
 
     pictureForm.open();
 }
