@@ -15,7 +15,10 @@
     <main class="content">
         <section class="profile">
             <div class="profile__container">
-                <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="аватар">
+                <div class="profile__avatar-container">
+                    <img class="profile__avatar" src="" alt="аватар">
+                    <img class="profile__avatar-change" src="<%=require('./images/change-avatar.svg')%>" alt="">
+                </div>
                 <div class="profile__info">
                     <div class="profile__name">
                         <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -118,7 +121,10 @@
             <button type="button" class="cards__button-delete"></button>
             <div class="cards__name">
                 <h2 class="cards__title"></h2>
-                <button type="button" class="cards__button-like"></button>
+                <div class="cards__like">
+                    <button type="button" class="cards__button-like"></button>
+                    <p class="cards__like-number"></p>
+                </div>
             </div>
         </li> 
     </template>
@@ -128,6 +134,37 @@
             <button type="button" class="popup__button-close popup__button-close_picture-full"></button>
             <img class="popup__full-picture" src="#" alt="">
             <h2 class="popup__picture-title"></h2>
+        </div>
+    </div>
+
+    <div class="popup popup_delete-card">
+        <div class="popup__container popup__container_delete-card">
+            <button type="button" class="popup__button-close popup__button-close_delete-card"></button>
+            <h2 class="popup__title">Вы уверены?</h2>
+            <button type="button" class="popup__button">Да</button>
+        </div>
+    </div>
+
+    <div class="popup popup_change-avatar">
+        <div class="popup__container popup__container_change-avatar">
+            <button type="button" class="popup__button-close popup__button-close_change-avatar"></button>
+            <form class="popup__form popup__form_change-avatar" name="change-avatar-form" novalidate>
+                <h2 class="popup__title">Обновить аватар</h2>
+                <fieldset class="popup__fieldset">
+                    <label class="popup__field">
+                        <input 
+                            type="url" 
+                            name="avatar-link" 
+                            id="avatar-link-input"
+                            placeholder="Ссылка на изображение" 
+                            class="popup__input popup__input_type_avatar-link" 
+                            required
+                        >
+                        <span class='popup__input-error' id='avatar-link-input_type_error'></span>
+                    </label>
+                    <button type="submit" class="popup__button">Сохранить</button>
+                </fieldset>
+            </form>
         </div>
     </div>
     

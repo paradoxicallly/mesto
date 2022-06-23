@@ -1,5 +1,6 @@
 .cards__name {
     display: flex;
     justify-content: space-between;
-    margin: 0 30px 0 21px;
+    max-height: 79px;
+    margin: 0 21px 0;
 }

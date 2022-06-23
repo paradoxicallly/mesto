@@ -4,6 +4,7 @@
     height: 44px;
     display: flex;
     flex-direction: column;
+    margin: 0px auto 0;
 }
 
 .popup__field:last-of-type {

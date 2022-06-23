@@ -8,13 +8,9 @@
     border: none;
     align-self: center;
     cursor: pointer;
+    margin-bottom: 3px;
 }
 
 .cards__button-like:hover {
     opacity: 0.5;
 }
-
-/* .cards__button-like:active {
-    background-image: url(../../../images/button-like-active.svg);
-    opacity: 1;
-} */

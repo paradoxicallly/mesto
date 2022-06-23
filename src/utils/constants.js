@@ -33,3 +33,5 @@ export const initialCards = [
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__error_visible'
   }
+
+  export const id = "646eb68794a90358f3ef59da"
