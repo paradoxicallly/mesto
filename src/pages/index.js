@@ -1,4 +1,5 @@
-import { initialCards, config } from '../utils/constants.js';
+import { config } from '../utils/constants.js';
+import './index.css';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -39,24 +40,26 @@ function openProfileForm() {
     jobInput.value = userInfo.getUserInfo().description;
 
     editFormValidator.resetError();
-
+    profileForm.renderLoading(false);
     profileForm.open()
 }
 
 function openAvatar() {
   avatarFormValidator.resetError();
 
+  avatarForm.renderLoading(false);
   avatarForm.open();
 }
 
 function openPictureForm() {
     cardFormValidator.resetError();
 
+    pictureForm.renderLoading(false, 'Создать');
     pictureForm.open();
 }
 
-function openDeleteCardPopup(id) {
-  deleteCardPopup.open(id)
+function openDeleteCardPopup(id, removeCardAction) {
+  deleteCardPopup.open(id, removeCardAction)
 }
 
 function submitProfileForm (evt, data) {
@@ -88,11 +91,19 @@ function createPicture(pictureObject) {
       pictureObject, 
       '.cards__template', 
       imageFull.open.bind(imageFull, pictureObject), 
-      openDeleteCardPopup);
+      openDeleteCardPopup,
+      updateLike);
 
     return cardElement.createPicture();
 }
 
+function updateLike(id, action,likesHandler) {
+  if (action === 'like') {
+    likeCard(id, likesHandler);
+  } else {
+    dislikeCard(id, likesHandler);
+  }
+}
 
 cardFormValidator.enableValidation();
 editFormValidator.enableValidation();
@@ -122,20 +133,22 @@ function getUserInfo() {
 
 // изменяем информацию о пользователе
 function setUserInfo(name, about) {
+    profileForm.renderLoading(true);
     api.setUserInfo(name, about)
     .then(res => {
         userInfo.setUserInfo(res.name, res.about, res.avatar)
       })
       .catch((err) => {
+        profileForm.renderLoading(false)
         console.log(err);
       });
+      // profileForm.renderLoading(false);
 }
 
 // получаем первоначальный список карточек
 function getInitialCardList () {
   api.getInitialCards()
   .then(res => {
-    console.log(res)
     imageSection.renderItems(res)
   })
   .catch((err) => {
@@ -145,11 +158,13 @@ function getInitialCardList () {
 
 // создаём новую карточку
 function addCard (name, link) {
+    pictureForm.renderLoading(true)
     api.addCard(name, link)
     .then(res => {
         imageSection.addItem(res)
     })
     .catch((err) => {
+        pictureForm.renderLoading(false, 'Создать')
         console.log(err);
     });
 }
@@ -167,13 +182,36 @@ function removeCard(id) {
 
 // изменяем аватар
 function changeAvatar(url) {
+  avatarForm.renderLoading(true)
   api.changeAvatar(url)
   .then(res => {
     userInfo.setUserInfo(res.name, res.about, res.avatar)
   })
   .catch((err) => {
     console.log(err);
-});
+    avatarForm.renderLoading(false)
+  });
+}
+
+// лайкаем карточку
+function likeCard(id, action) {
+  api.putLike(id)
+  .then(res => {
+     action(res.likes)
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+}
+
+function dislikeCard(id, action) {
+  api.deleteLike(id)
+  .then(res => {
+    action(res.likes)
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 }
 
 // запрос начальной информации
