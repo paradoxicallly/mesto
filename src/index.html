@@ -140,8 +140,10 @@
     <div class="popup popup_delete-card">
         <div class="popup__container popup__container_delete-card">
             <button type="button" class="popup__button-close popup__button-close_delete-card"></button>
-            <h2 class="popup__title">Вы уверены?</h2>
-            <button type="button" class="popup__button">Да</button>
+            <form class="popup__form" name="confirm-delete-form" novalidate>
+              <h2 class="popup__title">Вы уверены?</h2>
+              <button type="submit" class="popup__button">Да</button>
+            </form>   
         </div>
     </div>
 

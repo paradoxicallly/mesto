@@ -7,6 +7,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupConfirm from '../components/PopupConfirm.js';
 import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
+import Api from '../components/Api.js';
 import {
     popupProfile,
     nameInput,
@@ -18,7 +19,15 @@ import {
     avatarChangeForm,
 } from '../utils/utils.js';
 
-import { api } from '../components/Api.js';
+
+// api
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-43',
+  headers: {
+    authorization: '6ed042bf-2366-499a-a914-7c67f0f819b8',
+    'Content-Type': 'application/json'
+  }
+});
 
 //валидация
 const cardFormValidator = new FormValidator(config, popupPictureForm);
@@ -62,28 +71,20 @@ function openDeleteCardPopup(id, removeCardAction) {
   deleteCardPopup.open(id, removeCardAction)
 }
 
-function submitProfileForm (evt, data) {
-    evt.preventDefault()
+function submitProfileForm (data) {
     setUserInfo(data['profile-name'], data['profile-job'])
-    profileForm.close()
 }
 
-function submitChangeAvatar(evt, data) {
-  evt.preventDefault()
-  changeAvatar(data['avatar-link'])
-  avatarForm.close()
+function submitChangeAvatar(data) {
+    changeAvatar(data['avatar-link'])
 }
 
-function submitPictureForm(evt, data) {
-    evt.preventDefault()
+function submitPictureForm(data) {
     addCard(data['image-title'], data['image-link'])
-    pictureForm.close()
 }
 
-function submitDeleteCardPopup(evt, id) {
-  evt.preventDefault()
-  removeCard(id)
-  deleteCardPopup.close()
+function submitDeleteCardPopup(id) {
+    removeCard(id)
 }
 
 function createPicture(pictureObject) {
@@ -92,18 +93,23 @@ function createPicture(pictureObject) {
       '.cards__template', 
       imageFull.open.bind(imageFull, pictureObject), 
       openDeleteCardPopup,
-      updateLike);
+      likeCard,
+      dislikeCard);
 
     return cardElement.createPicture();
 }
 
-function updateLike(id, action,likesHandler) {
-  if (action === 'like') {
-    likeCard(id, likesHandler);
-  } else {
-    dislikeCard(id, likesHandler);
-  }
-}
+// function updateLike(changeLike) {
+//   // changeLike()
+// }
+
+// function updateLike(id, action,likesHandler) {
+//   if (action === 'like') {
+//     likeCard(id, likesHandler);
+//   } else {
+//     dislikeCard(id, likesHandler);
+//   }
+// }
 
 cardFormValidator.enableValidation();
 editFormValidator.enableValidation();
@@ -138,6 +144,7 @@ function setUserInfo(name, about) {
     .then(res => {
         userInfo.setUserInfo(res.name, res.about, res.avatar)
       })
+      .then(()=> profileForm.close())
       .catch((err) => {
         profileForm.renderLoading(false)
         console.log(err);
@@ -163,6 +170,7 @@ function addCard (name, link) {
     .then(res => {
         imageSection.addItem(res)
     })
+    .then(() => pictureForm.close())
     .catch((err) => {
         pictureForm.renderLoading(false, 'Создать')
         console.log(err);
@@ -174,8 +182,9 @@ function removeCard(id) {
    api.removeCard(id)
    .then(() => {
       getInitialCardList();
-  })
-  .catch((err) => {
+    })
+    .then(() => deleteCardPopup.close())
+    .catch((err) => {
       console.log(err);
   });
 }
@@ -187,6 +196,7 @@ function changeAvatar(url) {
   .then(res => {
     userInfo.setUserInfo(res.name, res.about, res.avatar)
   })
+  .then(() => avatarForm.close())
   .catch((err) => {
     console.log(err);
     avatarForm.renderLoading(false)
@@ -194,26 +204,36 @@ function changeAvatar(url) {
 }
 
 // лайкаем карточку
-function likeCard(id, action) {
+function likeCard(id, action, updateLike) {
   api.putLike(id)
   .then(res => {
      action(res.likes)
   })
+  .then(() => updateLike())
   .catch((err) => {
     console.log(err);
   });
 }
 
-function dislikeCard(id, action) {
+function dislikeCard(id, action, updateLike) {
   api.deleteLike(id)
   .then(res => {
     action(res.likes)
   })
+  .then(() => updateLike())
   .catch((err) => {
     console.log(err);
   });
 }
 
 // запрос начальной информации
-getUserInfo();
-getInitialCardList();
+
+Promise.all([
+  getUserInfo()
+])
+.then((values)=>{ 
+  getInitialCardList()
+})
+.catch((err)=>{ //попадаем сюда если один из промисов завершаться ошибкой
+  console.log(err);
+}) 

@@ -4,7 +4,7 @@ export default class PopupConfirm extends Popup {
     constructor(popupSelector, handleConfirm) {
         super(popupSelector);
         this._handleConfirm = handleConfirm;
-        this._confirmButton = this._popup.querySelector('.popup__button');
+        this._popupForm = this._popup.querySelector('.popup__form');
         this._imgId = null;
         this._submitAction = null
     }
@@ -15,9 +15,10 @@ export default class PopupConfirm extends Popup {
         this._submitAction = handleSubmitAction;
     }
 
+    // я не нашла, как сделать что форма отправлялась по Enter без инпутов
     setEventListeners() {
         super.setEventListeners();
-        this._confirmButton.addEventListener('click',(evt) => {
+        this._popupForm.addEventListener('submit',(evt) => {
             this._handleConfirm(evt, this._imgId)
             this._submitAction();
         })

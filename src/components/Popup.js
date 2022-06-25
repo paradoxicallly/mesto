@@ -19,7 +19,7 @@ export default class Popup {
         if (isLoading) {
           this._submitButton.textContent = 'Сохранение...';
         } else {
-          this._submitButton.textContent = `${confirmText}`;
+          this._submitButton.textContent = confirmText;
         }
       } 
 

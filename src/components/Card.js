@@ -1,6 +1,14 @@
 import { id } from "../utils/constants";
 export default class Card {
-    constructor(data, selector, handleCardClick, handleCardDelete, handleLikeUpdate) {
+    constructor(
+        data, 
+        selector, 
+        handleCardClick, 
+        handleCardDelete,
+        handleLike,
+        handleDislike,
+        handleLikeUpdate
+        ) {
         this._selector = selector;
         this._imageLink = data.link;
         this._name = data.name;
@@ -10,6 +18,8 @@ export default class Card {
         this._likeCounter = data.likes.length
         this._handleCardClick = handleCardClick;
         this._handleCardDelete = handleCardDelete;
+        this._handleLike = handleLike;
+        this._handleDislike = handleDislike;
         this._handleLikeUpdate = handleLikeUpdate;
     }
 
@@ -46,15 +56,19 @@ export default class Card {
         this._element.querySelector('.cards__like-number').textContent = likes.length
     }
 
+    _updateLike() {
+      this._element.querySelector('.cards__button-like').classList.toggle('cards__button-like_active')
+    }
+
     _handleLikeCard() {
         const likeButton = this._element.querySelector('.cards__button-like');
 
         if (likeButton.classList.contains('cards__button-like_active')) {
-          this._handleLikeUpdate(this._cardId, 'dislike', this._setLikes.bind(this))
+            this._handleDislike(this._cardId, this._setLikes.bind(this), this._updateLike.bind(this));
         } else  {
-          this._handleLikeUpdate(this._cardId, 'like', this._setLikes.bind(this));
+            this._handleLike(this._cardId, this._setLikes.bind(this), this._updateLike.bind(this));
         }
-        likeButton.classList.toggle('cards__button-like_active')
+
     }
 
     _handleElementContent() {
