@@ -116,4 +116,8 @@ export default class Api {
             return Promise.reject(`Ошибка: ${res.status}`);
         })
     }
+
+    getAppInfo() {
+        return Promise.all([this.getInitialCards(), this.getUserInfo()]);
+      }
   }

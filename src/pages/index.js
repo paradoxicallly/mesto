@@ -34,6 +34,9 @@ const cardFormValidator = new FormValidator(config, popupPictureForm);
 const editFormValidator = new FormValidator(config, popupProfile);
 const avatarFormValidator = new FormValidator(config, avatarChangeForm);
 
+// текущий пользователь
+let currentUserId;
+
 //классы
 const profileForm = new PopupWithForm('.popup_profile', submitProfileForm);
 const avatarForm = new PopupWithForm('.popup_change-avatar', submitChangeAvatar);
@@ -99,18 +102,6 @@ function createPicture(pictureObject) {
     return cardElement.createPicture();
 }
 
-// function updateLike(changeLike) {
-//   // changeLike()
-// }
-
-// function updateLike(id, action,likesHandler) {
-//   if (action === 'like') {
-//     likeCard(id, likesHandler);
-//   } else {
-//     dislikeCard(id, likesHandler);
-//   }
-// }
-
 cardFormValidator.enableValidation();
 editFormValidator.enableValidation();
 avatarFormValidator.enableValidation();
@@ -146,10 +137,9 @@ function setUserInfo(name, about) {
       })
       .then(()=> profileForm.close())
       .catch((err) => {
-        profileForm.renderLoading(false)
         console.log(err);
-      });
-      // profileForm.renderLoading(false);
+      })
+      .finally(()=> profileForm.renderLoading(false))
 }
 
 // получаем первоначальный список карточек
@@ -168,13 +158,16 @@ function addCard (name, link) {
     pictureForm.renderLoading(true)
     api.addCard(name, link)
     .then(res => {
-        imageSection.addItem(res)
+      api.getUserInfo()
+      .then(userInfo => {
+        imageSection.addItem(res, userInfo._id)
+      })
     })
     .then(() => pictureForm.close())
     .catch((err) => {
-        pictureForm.renderLoading(false, 'Создать')
         console.log(err);
-    });
+    })
+    .finally(() => pictureForm.renderLoading(false, 'Создать'))
 }
 
 // удаляем свою карточку
@@ -199,8 +192,8 @@ function changeAvatar(url) {
   .then(() => avatarForm.close())
   .catch((err) => {
     console.log(err);
-    avatarForm.renderLoading(false)
-  });
+  })
+  .finally(() => avatarForm.renderLoading(false))
 }
 
 // лайкаем карточку
@@ -227,13 +220,13 @@ function dislikeCard(id, action, updateLike) {
 }
 
 // запрос начальной информации
-
-Promise.all([
-  getUserInfo()
-])
-.then((values)=>{ 
-  getInitialCardList()
+api.getAppInfo()
+.then(([ cardsArray, userData ]) => {
+  userInfo.setUserInfo(
+   userData.name,
+   userData.about,
+   userData.avatar
+);
+imageSection.renderItems(cardsArray, userData._id);
 })
-.catch((err)=>{ //попадаем сюда если один из промисов завершаться ошибкой
-  console.log(err);
-}) 
+.catch(err => console.log(`Ошибка загрузки данных: ${err}`)) 

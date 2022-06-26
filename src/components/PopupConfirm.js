@@ -19,7 +19,8 @@ export default class PopupConfirm extends Popup {
     setEventListeners() {
         super.setEventListeners();
         this._popupForm.addEventListener('submit',(evt) => {
-            this._handleConfirm(evt, this._imgId)
+            evt.preventDefault();
+            this._handleConfirm(this._imgId)
             this._submitAction();
         })
     }

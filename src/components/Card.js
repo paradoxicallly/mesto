@@ -1,19 +1,19 @@
-import { id } from "../utils/constants";
 export default class Card {
     constructor(
-        data, 
-        selector, 
+        data,
+        selector,
         handleCardClick, 
         handleCardDelete,
         handleLike,
         handleDislike,
-        handleLikeUpdate
+        handleLikeUpdate,
         ) {
         this._selector = selector;
         this._imageLink = data.link;
         this._name = data.name;
         this._cardId = data._id;
         this._ownerId = data.owner._id;
+        this._currentUserId = data.currentUserId
         this._likes = data.likes;
         this._likeCounter = data.likes.length
         this._handleCardClick = handleCardClick;
@@ -74,7 +74,7 @@ export default class Card {
     _handleElementContent() {
         const cardImage = this._element.querySelector('.cards__image');
 
-        if(this._likes.find(like => like._id === id)) {
+        if(this._likes.find(like => like._id === this._currentUserId)) {
             this._element.querySelector('.cards__button-like').classList.add('cards__button-like_active');
         }
 
@@ -85,7 +85,7 @@ export default class Card {
     }
 
     _handleRemoveCardButton() {
-        if(this._ownerId !== id) {
+        if(this._ownerId !== this._currentUserId) {
             this._element.querySelector('.cards__button-delete').style.display = "none";
         }
     }
